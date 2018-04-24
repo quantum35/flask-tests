@@ -15,13 +15,13 @@ class TestFlaskApp(unittest.TestCase):
         self.data4 = {"name":"ugali", "price":"1000"}
 
     def test_login(self):
-        response = self.app.get('/')
+        response = self.app.get('/index')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Successfully Logged in")
         self.assertEqual(response.status_code, 200)
 
     def test_register(self):
-        response = self.app.post('/register', data = json.dumps(self.data) , content_type = 'application/json')
+        response = self.app.post('/index', data = json.dumps(self.data) , content_type = 'application/json')
         result = json.loads(response.data)
         self.assertEqual(result["username"], "quantum")
         self.assertEqual(result["email"], "quantum@gmail.com")
@@ -29,7 +29,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
     
     def test_addNewMeal(self):
-        response = self.app.post('/addNewMeal', data = json.dumps(self.data2) , content_type = 'application/json')
+        response = self.app.post('/menu', data = json.dumps(self.data2) , content_type = 'application/json')
         result = json.loads(response.data)
         self.assertEqual(result["meal_id"], "meal1")
         self.assertEqual(result["name"], "Chips")
@@ -37,7 +37,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_modifyMeal(self):
-        response = self.app.put('/UpdatemealOption', data = json.dumps(self.data11) , content_type = 'application/json')
+        response = self.app.put('/menu', data = json.dumps(self.data11) , content_type = 'application/json')
         result = json.loads(response.data)
         self.assertEqual(result["meal_id"], "meal1")
         self.assertEqual(result["name"], "Ugali")
@@ -45,13 +45,13 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_deleteMealOption(self):
-        response = self.app.delete('/detemeal',data=json.dumps(self.data1),content_type = 'application/json' )
+        response = self.app.delete('/menu',data=json.dumps(self.data1),content_type = 'application/json' )
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Meal Successfuly Deleted")
         self.assertEqual(response.status_code, 200)
 
     def test_MealOfTheDay(self):
-        response = self.app.post('/setUpmealDay', data = json.dumps(self.data1) , content_type = 'application/json')
+        response = self.app.post('/menu/mealOfTheDay', data = json.dumps(self.data1) , content_type = 'application/json')
         result = json.loads(response.data)
         self.assertEqual(result["meal_id"], "meal1")
         self.assertEqual(result["name"], "Chips")
@@ -59,45 +59,45 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
     
     def test_OrdersMadeByUsers(self):
-        response = self.app.get('/checkOrdersMadebyUser')
+        response = self.app.get('/admin/history')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Here are The Orders Made by users")
         self.assertEqual(response.status_code, 200)
     def test_profitMade(self):
-        response = self.app.get('/checkTodaysProfit')
+        response = self.app.get('/admin/profit')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Todays Profit is")
         self.assertEqual(response.status_code, 200)
     def test_admCheckOrderHistory(self):
-        response = self.app.get('/checkOrderHistoryAdmm')
+        response = self.app.get('/admin/orders')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Here is Your History")
         self.assertEqual(response.status_code, 200)
     def test_noAdmin(self):
-        response = self.app.get('/checkLogedinAdmins')
+        response = self.app.get('/admin/index')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Return More Than one Admin Loged In")
         self.assertEqual(response.status_code, 200)
 
 #Cutomers
     def test_custCheckDaysMenu(self):
-        response = self.app.get('/custCheckMenu')
+        response = self.app.get('/users/profile')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Here is your Menu Of the Day")
         self.assertEqual(response.status_code, 200)
     def test_changeMealChoice(self):
-        response = self.app.put('/modifyMeal', data = json.dumps(self.data4) , content_type = 'application/json')
+        response = self.app.put('/users/menu', data = json.dumps(self.data4) , content_type = 'application/json')
         result = json.loads(response.data)
-        self.assertEqual(result["name"], "ugali")
-        self.assertEqual(result["price"], "1000")
+        self.assertEqual(result["name"], "Ugali")
+        self.assertEqual(result["price"], "500")
         self.assertEqual(response.status_code, 201)
     def test_checkOrderHistory(self):
-        response = self.app.get('/checkOrderHistory')
+        response = self.app.get('/users/orders')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Here is your Order History")
         self.assertEqual(response.status_code, 200)
     def test_getNotification(self):
-        response = self.app.get('/getNotification')
+        response = self.app.get('/users/notification')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "You have one New Message")
         self.assertEqual(response.status_code, 200)

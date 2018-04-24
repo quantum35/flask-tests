@@ -49,8 +49,8 @@ class modifyMeal(Resource):
         price = '500'
         return {
                 'meal_id':'meal1',
-                'name':'ugali',
-                'price':'1000'
+                'name':'Ugali',
+                'price':'500'
                 },201
 class deleteMealOption(Resource):
     def delete(self):
@@ -105,19 +105,19 @@ class getNotification(Resource):
         return{'message':'You have one New Message'}
 
 
-api.add_resource(login,'/')
-api.add_resource(register,'/register')
-api.add_resource(deleteMealOption,'/detemeal')
-api.add_resource(addNewMeal, '/addNewMeal')
-api.add_resource(modifyMeal,'/modifyMeal')
-api.add_resource(custCheckMenu,'/custCheckMenu')
-api.add_resource(checkOrdersMadebyUser,'/checkOrdersMadebyUser')
-api.add_resource(checkTodaysProfit,'/checkTodaysProfit')
-api.add_resource(checkOrderHistory,'/checkOrderHistory')
-api.add_resource(getNotification,'/getNotification')
-api.add_resource(checkOrderHistoryAdmm,'/checkOrderHistoryAdmm')
-api.add_resource(checkLogedinAdmins,'/checkLogedinAdmins')
-api.add_resource(setUpmealDay,'/setUpmealDay')
-api.add_resource(UpdatemealOption,'/UpdatemealOption')
+api.add_resource(login,'/index')
+api.add_resource(register,'/index')
+api.add_resource(deleteMealOption,'/menu')
+api.add_resource(addNewMeal, '/menu')
+api.add_resource(modifyMeal,'/users/menu')
+api.add_resource(custCheckMenu,'/users/profile')
+api.add_resource(checkOrdersMadebyUser,'/admin/history')
+api.add_resource(checkTodaysProfit,'/admin/profit')
+api.add_resource(checkOrderHistory,'/users/orders')
+api.add_resource(getNotification,'/users/notification')
+api.add_resource(checkOrderHistoryAdmm,'/admin/orders')
+api.add_resource(checkLogedinAdmins,'/admin/index')
+api.add_resource(setUpmealDay,'/menu/mealOfTheDay')
+api.add_resource(UpdatemealOption,'/menu')
 if __name__ == '__main__':
     app.run(port=5000, debug=True)    
