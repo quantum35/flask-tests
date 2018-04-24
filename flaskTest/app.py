@@ -31,35 +31,43 @@ class addNewMeal(Resource):
                 'name':'Chips',
                 'price':'1000'
                 },201
-class modifyMeal(Resource):
+class UpdatemealOption(Resource):
     def put(self):
-        data = request.get_json()
-        meal_id = data['meal_id']
-        name = data['name']
-        price = data['price']
+        data11 = request.get_json()
+        meal_id = data11['meal_id']
+        name = data11['name']
+        price = data11['price']
         return {
-                'meal_id':'1',
+                'meal_id':'meal1',
                 'name':'Ugali',
                 'price':'500'
                 },201
-class deleteMealOption(Resource):
-    def delete(self):
-        data = request.get_json()
-        meal_id = data['meal_id']
-        name = data['name']
-        price = data['price']
-        return {'meal_id':'meal1',
-                'name':'Chips',
+class modifyMeal(Resource):
+    def put(self):
+        meal_id = 'meal1'
+        name = 'Ugali'
+        price = '500'
+        return {
+                'meal_id':'meal1',
+                'name':'ugali',
                 'price':'1000'
                 },201
+class deleteMealOption(Resource):
+    def delete(self):
+        data1 = request.get_json()
+        meal_id = data1['meal_id']
+        name = data1['name']
+        price = data1['price']
+        return { 'message':'Meal Successfuly Deleted'
+                },200
         
 
 class setUpmealDay(Resource):
      def post(self):
-        data = request.get_json()
-        meal_id = data['id']
-        name = data['mname']
-        price = data['mprice']
+        data1 = request.get_json()
+        meal_id = data1['meal_id']
+        name = data1['name']
+        price = data1['price']
         return {'meal_id':'meal1',
                 'name':'Chips',
                 'price':'1000'
@@ -109,5 +117,7 @@ api.add_resource(checkOrderHistory,'/checkOrderHistory')
 api.add_resource(getNotification,'/getNotification')
 api.add_resource(checkOrderHistoryAdmm,'/checkOrderHistoryAdmm')
 api.add_resource(checkLogedinAdmins,'/checkLogedinAdmins')
+api.add_resource(setUpmealDay,'/setUpmealDay')
+api.add_resource(UpdatemealOption,'/UpdatemealOption')
 if __name__ == '__main__':
     app.run(port=5000, debug=True)    
