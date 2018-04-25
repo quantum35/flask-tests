@@ -80,7 +80,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(result["message"], "Return More Than one Admin Loged In")
         self.assertEqual(response.status_code, 200)
 
-#Cutomers
+#Cutomers Test
     def test_custCheckDaysMenu(self):
         response = self.app.get('/users/menu/')
         result = json.loads(response.data)
