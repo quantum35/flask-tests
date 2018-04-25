@@ -6,11 +6,17 @@ api = Api(app)
 
 
 class login(Resource):
-    def get(self):
-        return {'message':'Successfully Logged in'},200
+    def post(self):
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        return {'username':'quantum',
+                'email':'quantum@gmail.com',
+                'password':'password'
+                },201
 
 
-class register(Resource):
+class signup(Resource):
     def post(self):
         data = request.get_json()
         username = data['username']
@@ -32,7 +38,7 @@ class addNewMeal(Resource):
                 'price':'1000'
                 },201
 class UpdatemealOption(Resource):
-    def put(self,mealid):
+    def put(self):
         data11 = request.get_json()
         meal_id = data11['meal_id']
         name = data11['name']
@@ -43,7 +49,7 @@ class UpdatemealOption(Resource):
                 'price':'500'
                 },201
 class modifyMeal(Resource):
-    def put(self,menuid):
+    def put(self):
         meal_id = 'meal1'
         name = 'Ugali'
         price = '500'
@@ -53,7 +59,7 @@ class modifyMeal(Resource):
                 'price':'500'
                 },201
 class deleteMealOption(Resource):
-    def delete(self,mealid):
+    def delete(self):
         data1 = request.get_json()
         meal_id = data1['meal_id']
         name = data1['name']
@@ -97,7 +103,7 @@ class custCheckMenu(Resource):
                 'price':'1000'
                 },201
 class updateOrder(Resource):
-     def put(self, orderid):
+     def put(self):
         data12 = request.get_json()
         id = '1',
         name = 'Rice'
@@ -118,20 +124,20 @@ class getNotification(Resource):
 
 
 api.add_resource(login,'/auth/login')
-api.add_resource(register,'/auth/register')
+api.add_resource(signup,'/auth/signup')
 api.add_resource(addNewMeal, '/meals/')
-api.add_resource(deleteMealOption,'/meals/<mealid>')
-api.add_resource(UpdatemealOption,'/meals/<mealid>')
+api.add_resource(deleteMealOption,'/meals/1')
+api.add_resource(UpdatemealOption,'/meals/1')
 api.add_resource(setUpmealDay,'/menu/')
 api.add_resource(checkOrderHistoryAdmm,'/orders')
-api.add_resource(modifyMeal,'/menu/<menuid>')
+api.add_resource(modifyMeal,'/menu/1')
 api.add_resource(checkOrdersMadebyUser,'/orders/')
 api.add_resource(checkTodaysProfit,'/profit')
 api.add_resource(checkLogedinAdmins,'/admin/')
 #customer
 api.add_resource(custCheckMenu,'/users/menu/')
 api.add_resource(checkOrderHistory,'/users/orders')
-api.add_resource(updateOrder,'/users/orders/<orderid>')
+api.add_resource(updateOrder,'/users/orders/1')
 api.add_resource(getNotification,'/users/notification')
 
 if __name__ == '__main__':

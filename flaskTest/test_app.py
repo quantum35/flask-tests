@@ -16,13 +16,14 @@ class TestFlaskApp(unittest.TestCase):
         self.data12 = {'id':'1','name':'Rice','price':'400'}
 
     def test_login(self):
-        response = self.app.get('/auth/login')
+        response = self.app.post('/auth/login', data = json.dumps(self.data) , content_type = 'application/json')
         result = json.loads(response.data)
-        self.assertEqual(result["message"], "Successfully Logged in")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(result["email"], "quantum@gmail.com")
+        self.assertEqual(result["password"], "password")
+        self.assertEqual(response.status_code, 201)
 
-    def test_register(self):
-        response = self.app.post('/auth/register', data = json.dumps(self.data) , content_type = 'application/json')
+    def test_signup(self):
+        response = self.app.post('/auth/signup', data = json.dumps(self.data) , content_type = 'application/json')
         result = json.loads(response.data)
         self.assertEqual(result["username"], "quantum")
         self.assertEqual(result["email"], "quantum@gmail.com")
@@ -38,7 +39,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_modifyMeal(self):
-        response = self.app.put('/meals/<mealid>', data = json.dumps(self.data11) , content_type = 'application/json')
+        response = self.app.put('/meals/1', data = json.dumps(self.data11) , content_type = 'application/json')
         result = json.loads(response.data)
         self.assertEqual(result["meal_id"], "meal1")
         self.assertEqual(result["name"], "Ugali")
@@ -46,7 +47,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_deleteMealOption(self):
-        response = self.app.delete('/meals/<mealid>',data=json.dumps(self.data1),content_type = 'application/json' )
+        response = self.app.delete('/meals/1',data=json.dumps(self.data1),content_type = 'application/json' )
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Meal Successfuly Deleted")
         self.assertEqual(response.status_code, 200)
@@ -87,7 +88,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(result["message"], "Here is your Menu Of the Day")
         self.assertEqual(response.status_code, 200)
     def test_changeMealChoice(self):
-        response = self.app.put('/menu/<menuid>', data = json.dumps(self.data4) , content_type = 'application/json')
+        response = self.app.put('/menu/1', data = json.dumps(self.data4) , content_type = 'application/json')
         result = json.loads(response.data)
         self.assertEqual(result["name"], "Ugali")
         self.assertEqual(result["price"], "500")
@@ -103,7 +104,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(result["message"], "You have one New Message")
         self.assertEqual(response.status_code, 200)
     def test_modifyOrder(self):
-        response = self.app.put('/users/orders/<orderid>', data = json.dumps(self.data12) , content_type = 'application/json')
+        response = self.app.put('/users/orders/1', data = json.dumps(self.data12) , content_type = 'application/json')
         result = json.loads(response.data)
         self.assertEqual(result["id"], "1")
         self.assertEqual(result["name"], "Rice")
