@@ -96,6 +96,18 @@ class custCheckMenu(Resource):
         return {'name':'ugali',
                 'price':'1000'
                 },201
+class updateOrder(Resource):
+     def put(self, orderid):
+        data12 = request.get_json()
+        id = '1',
+        name = 'Rice'
+        price = '400'
+        return {
+                'id':'1',
+                'name':'Rice',
+                'price':'400'
+                },201
+
 class checkOrderHistory(Resource):
     def get(self):
         return{'message':'Here is your Order History'}
@@ -111,14 +123,16 @@ api.add_resource(addNewMeal, '/meals/')
 api.add_resource(deleteMealOption,'/meals/<mealid>')
 api.add_resource(UpdatemealOption,'/meals/<mealid>')
 api.add_resource(setUpmealDay,'/menu/')
+api.add_resource(checkOrderHistoryAdmm,'/orders')
 api.add_resource(modifyMeal,'/menu/<menuid>')
-api.add_resource(custCheckMenu,'/users/menu/')
 api.add_resource(checkOrdersMadebyUser,'/orders/')
-api.add_resource(checkTodaysProfit,'/admin/profit')
-api.add_resource(checkOrderHistory,'/users/orders')
-api.add_resource(getNotification,'/users/notification')
-api.add_resource(checkOrderHistoryAdmm,'/admin/orders')
+api.add_resource(checkTodaysProfit,'/profit')
 api.add_resource(checkLogedinAdmins,'/admin/')
+#customer
+api.add_resource(custCheckMenu,'/users/menu/')
+api.add_resource(checkOrderHistory,'/users/orders')
+api.add_resource(updateOrder,'/users/orders/<orderid>')
+api.add_resource(getNotification,'/users/notification')
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)    

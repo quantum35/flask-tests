@@ -13,6 +13,7 @@ class TestFlaskApp(unittest.TestCase):
         self.data2 = {"meal_id":"meal1", "name":"Ugali","price":"500"}
         self.data3 = {"meal_id":"meal1", "name":"Chips","price":"1000"}
         self.data4 = {"name":"ugali", "price":"1000"}
+        self.data12 = {'id':'1','name':'Rice','price':'400'}
 
     def test_login(self):
         response = self.app.get('/auth/login')
@@ -64,12 +65,12 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(result["message"], "Here are The Orders Made by users")
         self.assertEqual(response.status_code, 200)
     def test_profitMade(self):
-        response = self.app.get('/admin/profit')
+        response = self.app.get('/profit')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Todays Profit is")
         self.assertEqual(response.status_code, 200)
     def test_admCheckOrderHistory(self):
-        response = self.app.get('/admin/orders')
+        response = self.app.get('/orders')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Here is Your History")
         self.assertEqual(response.status_code, 200)
@@ -101,6 +102,13 @@ class TestFlaskApp(unittest.TestCase):
         result = json.loads(response.data)
         self.assertEqual(result["message"], "You have one New Message")
         self.assertEqual(response.status_code, 200)
+    def test_modifyOrder(self):
+        response = self.app.put('/users/orders/<orderid>', data = json.dumps(self.data12) , content_type = 'application/json')
+        result = json.loads(response.data)
+        self.assertEqual(result["id"], "1")
+        self.assertEqual(result["name"], "Rice")
+        self.assertEqual(result["price"], "400")
+        self.assertEqual(response.status_code, 201)
 
 if __name__ == '__main__':
     unittest.main()
