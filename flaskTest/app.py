@@ -32,7 +32,7 @@ class addNewMeal(Resource):
                 'price':'1000'
                 },201
 class UpdatemealOption(Resource):
-    def put(self):
+    def put(self,mealid):
         data11 = request.get_json()
         meal_id = data11['meal_id']
         name = data11['name']
@@ -43,7 +43,7 @@ class UpdatemealOption(Resource):
                 'price':'500'
                 },201
 class modifyMeal(Resource):
-    def put(self):
+    def put(self,menuid):
         meal_id = 'meal1'
         name = 'Ugali'
         price = '500'
@@ -53,7 +53,7 @@ class modifyMeal(Resource):
                 'price':'500'
                 },201
 class deleteMealOption(Resource):
-    def delete(self):
+    def delete(self,mealid):
         data1 = request.get_json()
         meal_id = data1['meal_id']
         name = data1['name']
@@ -105,19 +105,20 @@ class getNotification(Resource):
         return{'message':'You have one New Message'}
 
 
-api.add_resource(login,'/index')
-api.add_resource(register,'/index')
-api.add_resource(deleteMealOption,'/menu')
-api.add_resource(addNewMeal, '/menu')
-api.add_resource(modifyMeal,'/users/menu')
-api.add_resource(custCheckMenu,'/users/profile')
-api.add_resource(checkOrdersMadebyUser,'/admin/history')
+api.add_resource(login,'/auth/login')
+api.add_resource(register,'/auth/register')
+api.add_resource(addNewMeal, '/meals/')
+api.add_resource(deleteMealOption,'/meals/<mealid>')
+api.add_resource(UpdatemealOption,'/meals/<mealid>')
+api.add_resource(setUpmealDay,'/menu/')
+api.add_resource(modifyMeal,'/menu/<menuid>')
+api.add_resource(custCheckMenu,'/users/menu/')
+api.add_resource(checkOrdersMadebyUser,'/orders/')
 api.add_resource(checkTodaysProfit,'/admin/profit')
 api.add_resource(checkOrderHistory,'/users/orders')
 api.add_resource(getNotification,'/users/notification')
 api.add_resource(checkOrderHistoryAdmm,'/admin/orders')
-api.add_resource(checkLogedinAdmins,'/admin/index')
-api.add_resource(setUpmealDay,'/menu/mealOfTheDay')
-api.add_resource(UpdatemealOption,'/menu')
+api.add_resource(checkLogedinAdmins,'/admin/')
+
 if __name__ == '__main__':
     app.run(port=5000, debug=True)    
