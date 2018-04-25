@@ -65,16 +65,19 @@ class TestFlaskApp(unittest.TestCase):
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Here are The Orders Made by users")
         self.assertEqual(response.status_code, 200)
+
     def test_profitMade(self):
         response = self.app.get('/profit')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Todays Profit is")
         self.assertEqual(response.status_code, 200)
+
     def test_admCheckOrderHistory(self):
         response = self.app.get('/orders')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Here is Your History")
         self.assertEqual(response.status_code, 200)
+
     def test_noAdmin(self):
         response = self.app.get('/admin/')
         result = json.loads(response.data)
@@ -87,22 +90,26 @@ class TestFlaskApp(unittest.TestCase):
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Here is your Menu Of the Day")
         self.assertEqual(response.status_code, 200)
+
     def test_changeMealChoice(self):
         response = self.app.put('/menu/1', data = json.dumps(self.data4) , content_type = 'application/json')
         result = json.loads(response.data)
         self.assertEqual(result["name"], "Ugali")
         self.assertEqual(result["price"], "500")
         self.assertEqual(response.status_code, 201)
+
     def test_checkOrderHistory(self):
         response = self.app.get('/users/orders')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "Here is your Order History")
         self.assertEqual(response.status_code, 200)
+
     def test_getNotification(self):
         response = self.app.get('/users/notification')
         result = json.loads(response.data)
         self.assertEqual(result["message"], "You have one New Message")
         self.assertEqual(response.status_code, 200)
+        
     def test_modifyOrder(self):
         response = self.app.put('/users/orders/1', data = json.dumps(self.data12) , content_type = 'application/json')
         result = json.loads(response.data)
